@@ -28,12 +28,4 @@ describe('Login Suite', () => {
         cy.visit("/greet")
         cy.get("h2.title").should("have.text", "Welcome To QA BOX LET'S TEST")
     });
-
-    it.only('Login via Custom LOGIN-API Command - SesionDemo', () => {
-        cy.loginViaAPI(Cypress.env("username"), Cypress.env("password"))
-        // cy.loginViaAPISession(Cypress.env("username"), Cypress.env("password"))
-        cy.visit("/session-demo")
-        cy.get("h2").should("have.text", "session")
-    });
-
 });
