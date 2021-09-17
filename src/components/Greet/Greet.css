@@ -1,0 +1,14 @@
+#demo {
+    border: 5px solid black;
+    border-radius: 110px;
+    background-color: antiquewhite;
+    width: 150px;
+    height: 150px;
+  font-style: oblique;
+  font-family: cursive;
+    text-align: center;
+    margin: auto;
+  padding: 10px;  
+    background-size: contain;
+    background-repeat: no-repeat;
+}

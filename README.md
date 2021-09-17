@@ -1,12 +1,12 @@
-# Getting Started with Create React App
+# Getting Started with Cypress cy.session command
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is created to show how we can login into an application programmatically; no more repetitions of login script. 
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
