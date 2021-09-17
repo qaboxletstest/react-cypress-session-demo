@@ -116,6 +116,8 @@ Cache and restore cookies, localStorage, and sessionStorage in order to reduce t
 
 ```
 cy.session(id, setup, options)
+
+```
 1. id (String, Array, Object) - A unique identifier that will be used to cache and restore a given session. In simple cases, a String value is sufficient. In order to simplify generation of more complex ids, if you pass an Array or Object, Cypress will generate an id for you by deterministically stringifying the value you pass in.
 
 2. setup (Function) - This function is called whenever a session for the given id hasn't yet been cached, or if it's no longer valid (see the validate option). After setup runs, Cypress will preserve all cookies, sessionStorage, and localStorage, so that subsequent calls to cy.session() with the same id will bypass setup and just restore the cached session data.
@@ -125,4 +127,3 @@ validate - Validates the newly-created or restored session.
 
 The validate function is run immediately after the setup function runs, and also every time cy.session() restores a cached session. If the validate function returns false, throws an exception, returns a Promise that resolves to false or rejects, or contains any failing Cypress command, the session will be considered invalid, and setup will be re-run. If validation fails immediately after setup runs, the test will fail.
 
-```

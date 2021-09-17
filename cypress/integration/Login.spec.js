@@ -5,7 +5,7 @@ describe('Login Suite', () => {
         //
     })
 
-    it.skip('Login via UI', () => {
+    it.only('Login via UI', () => {
         cy.visit("/")
         cy.get("input#username").type(Cypress.env("username"))
         cy.get("input#password").type(Cypress.env("password"))
@@ -22,14 +22,14 @@ describe('Login Suite', () => {
         cy.get("#logout").should("be.enabled")
     });
 
-    it.skip('Login via Custom LOGIN-API Command - Greet', () => {
+    it.only('Login via Custom LOGIN-API Command - Greet', () => {
         // cy.loginViaAPI(Cypress.env("username"), Cypress.env("password"))
         cy.loginViaAPISession(Cypress.env("username"), Cypress.env("password"))
         cy.visit("/greet")
         cy.get("h2.title").should("have.text", "Welcome To QA BOX LET'S TEST")
     });
 
-    it.skip('Login via Custom LOGIN-API Command - SesionDemo', () => {
+    it.only('Login via Custom LOGIN-API Command - SesionDemo', () => {
         cy.loginViaAPI(Cypress.env("username"), Cypress.env("password"))
         // cy.loginViaAPISession(Cypress.env("username"), Cypress.env("password"))
         cy.visit("/session-demo")
