@@ -25,10 +25,11 @@ Cypress.Commands.add("loginViaUISession", (username, password) => {
         cy.get("input#username").type(username)
         cy.get("input#password").type(password)
         cy.get("button#submit").click()
+        cy.get("#logout").should("be.enabled")
     },
         {
             validate() {
-                cy.url().should("contain", "/home")
+                cy.request('/greet').its('status').should('eq', 200)
             }
         }
     )

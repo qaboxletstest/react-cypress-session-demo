@@ -14,13 +14,15 @@ describe('Login Suite', () => {
         cy.get("#logout").should("be.enabled")
     });
 
-    it.skip('Login via Custom LOGIN-UI Command', () => {
-        cy.loginViaUI(Cypress.env("username"), Cypress.env("password"))
+    it.only('Login via Custom LOGIN-UI Command', () => {
+        // cy.loginViaUI(Cypress.env("username"), Cypress.env("password"))
+        cy.loginViaUISession(Cypress.env("username"), Cypress.env("password"))
+        cy.visit("/")
         cy.url().should("contain", "/home")
         cy.get("#logout").should("be.enabled")
     });
 
-    it('Login via Custom LOGIN-API Command - Greet', () => {
+    it.skip('Login via Custom LOGIN-API Command - Greet', () => {
         // cy.loginViaAPI(Cypress.env("username"), Cypress.env("password"))
         cy.loginViaAPISession(Cypress.env("username"), Cypress.env("password"))
         cy.visit("/greet")
