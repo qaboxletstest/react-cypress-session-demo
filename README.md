@@ -6,6 +6,11 @@ This project is created to show how we can login into an application programmati
 
 In the project directory, you can run:
 
+### Start Express Server `npm run start-server`
+
+Open [http://localhost:8080/login](http://localhost:8080/login) to view it in the browser.
+*username=adminS3rcet
+*password=adminS3rcet
 ### `npm start`
 
 Runs the app in the development mode.\
