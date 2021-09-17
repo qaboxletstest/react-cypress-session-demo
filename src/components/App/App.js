@@ -20,7 +20,6 @@ function App() {
   return (
     <div className="wrapper">
       <Header />
-
       <BrowserRouter>
         <Link to="/home">
           <button className="btn">Go to home</button>
