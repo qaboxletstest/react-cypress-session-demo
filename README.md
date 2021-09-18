@@ -2,6 +2,10 @@
 
 This project is created to show how we can login into an application programmatically; no more repetitions of login script. 
 
+## Install Dependencies
+
+`npm install`
+
 ## Available Scripts
 
 In the project directory, you can run:
