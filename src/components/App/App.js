@@ -22,7 +22,7 @@ function App() {
       <Header />
       <BrowserRouter>
         <Link to="/home">
-          <button className="btn">Go to home</button>
+          <button id="home" className="btn">Go to home</button>
         </Link>
         <Switch>
           <Route exact path="/">

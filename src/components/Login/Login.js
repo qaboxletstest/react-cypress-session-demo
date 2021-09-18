@@ -25,6 +25,7 @@ export default function Login({ setToken }) {
             password
         });
         setToken(token);
+        window.location.href = "http://localhost:3000/home"
     }
 
     return (

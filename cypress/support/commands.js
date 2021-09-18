@@ -15,6 +15,7 @@ Cypress.Commands.add("loginViaAPI", (uname, pwd) => {
             password: pwd
         }
     }).then(res => {
+        expect(res.status).to.eq(200)
         window.localStorage.setItem("token", JSON.stringify(res.body))
     })
 })
@@ -29,14 +30,15 @@ Cypress.Commands.add("loginViaUISession", (username, password) => {
     },
         {
             validate() {
-                cy.request('/greet').its('status').should('eq', 200)
+                cy.visit("/home")
+                cy.get("#home").should("be.enabled")
             }
         }
     )
 })
 
 Cypress.Commands.add("loginViaAPISession", (uname, pwd) => {
-    cy.session([], () => {
+    cy.session([uname, pwd], () => {
         cy.request({
             method: "POST",
             url: Cypress.env("apiserver") + "/login",
@@ -45,12 +47,14 @@ Cypress.Commands.add("loginViaAPISession", (uname, pwd) => {
                 password: pwd
             }
         }).then(res => {
+            expect(res.status).to.eq(200)
             window.localStorage.setItem("token", JSON.stringify(res.body))
         })
     },
         {
             validate() {
-                cy.request('/greet').its('status').should('eq', 200)
+                cy.visit("/home")
+                cy.get("#home").should("be.enabled")
             }
         }
     )

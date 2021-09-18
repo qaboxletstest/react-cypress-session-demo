@@ -5,6 +5,7 @@ export default function Header() {
     const logout = () => {
         localStorage.clear();
         window.location.reload()
+        window.location.href = "http://localhost:3000/login"
     }
     return (
         <div>

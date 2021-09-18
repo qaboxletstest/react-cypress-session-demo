@@ -32,17 +32,32 @@ Launches the Cypress test runner in the interactive watch mode.
 ```
     Tests using both API and UI - Both old and new way
 
+    beforeEach(() => {
+        // PLACE YOUR SESSION COMMAND IN HERE FIRST
+
+        // EXAMPLE
+        // cy.loginViaUISession(Cypress.env("username"), Cypress.env("password"))
+        // OR
+        // cy.loginViaAPISession(Cypress.env("username"), Cypress.env("password"))
+
+        // VISIT THE PAGE AFTER SESSION COMMAND
+
+        // EXAMPLE
+        // cy.visit("/")
+    })
+
+
     it('Login via Custom LOGIN-UI Command', () => {
-        // cy.loginViaUI(Cypress.env("username"), Cypress.env("password"))
-        cy.loginViaUISession(Cypress.env("username"), Cypress.env("password"))
+        cy.loginViaUI(Cypress.env("username"), Cypress.env("password"))
+        // cy.loginViaUISession(Cypress.env("username"), Cypress.env("password"))
         cy.visit("/")
         cy.url().should("contain", "/home")
         cy.get("#logout").should("be.enabled")
     });
 
     it('Login via Custom LOGIN-API Command - Greet', () => {
-        // cy.loginViaAPI(Cypress.env("username"), Cypress.env("password"))
-        cy.loginViaAPISession(Cypress.env("username"), Cypress.env("password"))
+        cy.loginViaAPI(Cypress.env("username"), Cypress.env("password"))
+        // cy.loginViaAPISession(Cypress.env("username"), Cypress.env("password"))
         cy.visit("/greet")
         cy.get("h2.title").should("have.text", "Welcome To QA BOX LET'S TEST")
     });
@@ -59,6 +74,20 @@ Cypress.Commands.add("loginViaUI", (username, password) => {
     cy.get("button#submit").click()
 })
 
+Cypress.Commands.add("loginViaAPI", (uname, pwd) => {
+    cy.request({
+        method: "POST",
+        url: Cypress.env("apiserver") + "/login",
+        body: {
+            username: uname,
+            password: pwd
+        }
+    }).then(res => {
+        expect(res.status).to.eq(200)
+        window.localStorage.setItem("token", JSON.stringify(res.body))
+    })
+})
+
 Cypress.Commands.add("loginViaUISession", (username, password) => {
     cy.session([username, password], () => {
         cy.visit("/")
@@ -69,27 +98,15 @@ Cypress.Commands.add("loginViaUISession", (username, password) => {
     },
         {
             validate() {
-                cy.request('/greet').its('status').should('eq', 200)
+                cy.visit("/home")
+                cy.get("#home").should("be.enabled")
             }
         }
     )
 })
 
-Cypress.Commands.add("loginViaAPI", (uname, pwd) => {
-    cy.request({
-        method: "POST",
-        url: Cypress.env("apiserver") + "/login",
-        body: {
-            username: uname,
-            password: pwd
-        }
-    }).then(res => {
-        window.localStorage.setItem("token", JSON.stringify(res.body))
-    })
-})
-
 Cypress.Commands.add("loginViaAPISession", (uname, pwd) => {
-    cy.session([], () => {
+    cy.session([uname, pwd], () => {
         cy.request({
             method: "POST",
             url: Cypress.env("apiserver") + "/login",
@@ -98,12 +115,14 @@ Cypress.Commands.add("loginViaAPISession", (uname, pwd) => {
                 password: pwd
             }
         }).then(res => {
+            expect(res.status).to.eq(200)
             window.localStorage.setItem("token", JSON.stringify(res.body))
         })
     },
         {
             validate() {
-                cy.request('/greet').its('status').should('eq', 200)
+                cy.visit("/home")
+                cy.get("#home").should("be.enabled")
             }
         }
     )
