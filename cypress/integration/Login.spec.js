@@ -25,17 +25,19 @@ describe('Login Suite', () => {
         cy.get("#logout").should("be.enabled")
     });
 
-    it.skip('Login via Custom LOGIN-UI Command', () => {
-        cy.loginViaUI(Cypress.env("username"), Cypress.env("password"))
-        // cy.loginViaUISession(Cypress.env("username"), Cypress.env("password"))
-        cy.visit("/")
+    it.only('Login via Custom LOGIN-UI Command', () => {
+        // cy.loginViaUI(Cypress.env("username"), Cypress.env("password"))
+        cy.loginViaUISession(Cypress.env("username"), Cypress.env("password"))
+        cy.visit("/home")
         cy.url().should("contain", "/home")
         cy.get("#logout").should("be.enabled")
+        cy.visit("/greet")
+        cy.get("h2.title").should("have.text", "Welcome To QA BOX LET'S TEST")
     });
 
-    it.skip('Login via Custom LOGIN-API Command - Greet', () => {
-        cy.loginViaAPI(Cypress.env("username"), Cypress.env("password"))
-        // cy.loginViaAPISession(Cypress.env("username"), Cypress.env("password"))
+    it.only('Login via Custom LOGIN-API Command - Greet', () => {
+        // cy.loginViaAPI(Cypress.env("username"), Cypress.env("password"))
+        cy.loginViaAPISession(Cypress.env("username"), Cypress.env("password"))
         cy.visit("/greet")
         cy.get("h2.title").should("have.text", "Welcome To QA BOX LET'S TEST")
     });
